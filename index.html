@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* ========== PRELOADER / LOADER STYLES ========== */
+        /* ========== SIMPLE CIRCLE LOADER ========== */
         .preloader {
             position: fixed;
             top: 0;
@@ -51,90 +51,19 @@
             text-align: center;
         }
 
-        /* Car animation */
-        .loader-car {
-            position: relative;
-            width: 200px;
-            height: 100px;
-            margin: 0 auto 30px;
-        }
-
-        .car-body {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 160px;
-            height: 45px;
-            background: #ff6a2c;
-            border-radius: 20px 20px 10px 10px;
-            animation: driveCar 1.5s ease-in-out infinite alternate;
-            box-shadow: 0 5px 20px rgba(255, 106, 44, 0.4);
-        }
-
-        .car-body::before {
-            content: '';
-            position: absolute;
-            top: -25px;
-            left: 30px;
-            width: 80px;
-            height: 35px;
-            background: #ff8c42;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .car-body::after {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: 45px;
-            width: 50px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-        }
-
-        .wheel {
-            position: absolute;
-            bottom: 0;
-            width: 28px;
-            height: 28px;
-            background: #1a1a2e;
+        /* Simple Circle Spinner */
+        .spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 25px;
+            border: 5px solid rgba(255, 106, 44, 0.2);
+            border-top: 5px solid #ff6a2c;
+            border-right: 5px solid #ff8c42;
             border-radius: 50%;
-            border: 3px solid #e0e0e0;
-            animation: rotateWheel 1s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
 
-        .wheel-left {
-            left: 20px;
-        }
-
-        .wheel-right {
-            right: 20px;
-        }
-
-        .wheel::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            background: #aaa;
-            border-radius: 50%;
-        }
-
-        @keyframes driveCar {
-            0% {
-                transform: translateX(0px);
-            }
-
-            100% {
-                transform: translateX(15px);
-            }
-        }
-
-        @keyframes rotateWheel {
+        @keyframes spin {
             0% {
                 transform: rotate(0deg);
             }
@@ -144,31 +73,12 @@
             }
         }
 
-        /* Road lines */
-        .road {
-            width: 200px;
-            height: 4px;
-            background: repeating-linear-gradient(90deg, #ff6a2c, #ff6a2c 20px, transparent 20px, transparent 40px);
-            margin: 20px auto 0;
-            animation: roadMove 0.8s linear infinite;
-        }
-
-        @keyframes roadMove {
-            0% {
-                background-position: 0 0;
-            }
-
-            100% {
-                background-position: 40px 0;
-            }
-        }
-
         .loader-text {
-            margin-top: 30px;
+            margin-top: 20px;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 2px;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .loader-dots {
@@ -229,11 +139,11 @@
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         section {
-            padding: 80px 0;
+            padding: 70px 0;
             position: relative;
         }
 
@@ -253,13 +163,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 24px;
+            padding: 12px 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .logo {
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, #ff8c42, #ff5e1a);
@@ -276,7 +186,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
         }
 
@@ -285,7 +195,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: 0.3s;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             position: relative;
         }
 
@@ -306,7 +216,6 @@
 
         .nav-links a:hover {
             color: #ff6a2c;
-            transform: translateY(-2px);
         }
 
         .menu-icon {
@@ -316,7 +225,7 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* Hero Section - Fully Responsive */
         .hero {
             background: linear-gradient(125deg, #0a0f1c 0%, #121a2e 100%);
             min-height: 100vh;
@@ -324,55 +233,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding-top: 80px;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 106, 44, 0.15), transparent);
-            top: 10%;
-            right: -10%;
-            border-radius: 50%;
-            animation: pulseGlow 7s infinite;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 106, 44, 0.1), transparent);
-            bottom: 0%;
-            left: -5%;
-            border-radius: 50%;
-            animation: pulseGlow2 8s infinite;
-        }
-
-        @keyframes pulseGlow {
-            0% {
-                opacity: 0.2;
-                transform: scale(0.9);
-            }
-
-            100% {
-                opacity: 0.6;
-                transform: scale(1.3);
-            }
-        }
-
-        @keyframes pulseGlow2 {
-            0% {
-                opacity: 0.1;
-                transform: scale(1);
-            }
-
-            100% {
-                opacity: 0.4;
-                transform: scale(1.5);
-            }
+            padding-top: 70px;
         }
 
         .hero-content {
@@ -380,7 +241,7 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 40px;
+            gap: 30px;
         }
 
         .hero-text {
@@ -390,53 +251,38 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
             font-weight: 800;
             line-height: 1.2;
-            animation: fadeUp 0.8s ease;
         }
 
         .hero-text .highlight {
             color: #ff6a2c;
-            position: relative;
             display: inline-block;
         }
 
-        .hero-text .highlight::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 106, 44, 0.3);
-            bottom: 5px;
-            left: 0;
-            z-index: -1;
-        }
-
         .hero-text p {
-            margin: 20px 0;
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin: 18px 0;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             opacity: 0.9;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .btn-group {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
-            margin-top: 10px;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 10px 24px;
             border-radius: 50px;
             font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             text-align: center;
-            letter-spacing: 0.5px;
         }
 
         .btn-primary {
@@ -448,140 +294,113 @@
 
         .btn-primary:hover {
             background: #e55a1e;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(255, 106, 44, 0.5);
+            transform: translateY(-2px);
         }
 
         .btn-outline {
             border: 2px solid #ff6a2c;
             color: #ff6a2c;
             background: transparent;
-            backdrop-filter: blur(4px);
         }
 
         .btn-outline:hover {
             background: #ff6a2c;
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .hero-image {
             flex: 1;
             text-align: center;
-            animation: fadeRight 0.9s ease;
         }
 
         .hero-image img {
             max-width: 100%;
-            filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.5));
             border-radius: 20px;
-            transition: transform 0.4s;
-        }
-
-        .hero-image img:hover {
-            transform: scale(1.02);
+            filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.4));
         }
 
         /* section titles */
         .section-title {
-            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 800;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             position: relative;
-            font-family: 'Poppins', sans-serif;
         }
 
         .section-title:after {
             content: '';
-            width: 80px;
+            width: 70px;
             height: 4px;
             background: #ff6a2c;
             display: block;
-            margin: 15px auto 0;
+            margin: 12px auto 0;
             border-radius: 4px;
         }
 
         /* car cards grid */
         .cars-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .car-card {
             background: white;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             cursor: pointer;
-            transform: translateY(0);
         }
 
         .car-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 45px -12px rgba(255, 106, 44, 0.25);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px -12px rgba(255, 106, 44, 0.2);
         }
 
         .car-img {
-            height: 220px;
+            height: 200px;
             overflow: hidden;
-            position: relative;
+            background: #f0f2f5;
         }
 
         .car-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s;
+            transition: transform 0.4s;
         }
 
         .car-card:hover .car-img img {
-            transform: scale(1.1);
-        }
-
-        .car-img::after {
-            content: '⚡ NEW';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #ff6a2c;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .car-card:hover .car-img::after {
-            opacity: 1;
+            transform: scale(1.05);
         }
 
         .car-info {
-            padding: 22px;
+            padding: 18px;
         }
 
         .car-info h3 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
         }
 
         .price {
             color: #ff6a2c;
             font-weight: 800;
-            font-size: 1.5rem;
-            margin: 8px 0;
+            font-size: 1.3rem;
+            margin: 6px 0;
         }
 
         .details {
             display: flex;
             justify-content: space-between;
-            margin: 15px 0;
+            margin: 12px 0;
             color: #4a5568;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 5px;
         }
 
         /* Stats Section */
@@ -593,22 +412,18 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 40px;
-        }
-
-        .stat-item {
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
         }
 
         .stat-number {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: #ff6a2c;
         }
 
         .stat-label {
-            font-size: 1rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -620,38 +435,38 @@
 
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
         }
 
         .testimonial-card {
             background: white;
-            padding: 30px;
-            border-radius: 28px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             transition: 0.3s;
             text-align: center;
         }
 
         .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
         }
 
         .testimonial-card i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ff6a2c;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .testimonial-card p {
             font-style: italic;
-            margin: 15px 0;
+            margin: 12px 0;
+            font-size: 0.9rem;
         }
 
         .client-name {
             font-weight: 700;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         /* Features section */
@@ -662,15 +477,15 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
             text-align: center;
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #ff6a2c;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
             transition: 0.3s;
         }
 
@@ -679,8 +494,13 @@
         }
 
         .feature-item h4 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 0.85rem;
+            opacity: 0.85;
         }
 
         /* Brand Section */
@@ -693,12 +513,12 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
+            gap: 30px;
+            margin-top: 25px;
         }
 
         .brand-logos i {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #aaa;
             transition: 0.3s;
         }
@@ -716,17 +536,17 @@
         .location-wrap {
             display: flex;
             flex-wrap: wrap;
-            gap: 35px;
+            gap: 30px;
             align-items: stretch;
         }
 
         .map-placeholder {
             flex: 1;
             min-width: 260px;
-            border-radius: 32px;
-            height: 300px;
+            border-radius: 24px;
+            height: 280px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .map-placeholder iframe {
@@ -738,15 +558,20 @@
         .address-box {
             flex: 1;
             background: white;
-            padding: 30px;
-            border-radius: 32px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         .address-box i {
             color: #ff6a2c;
-            margin-right: 12px;
-            width: 28px;
+            margin-right: 10px;
+            width: 25px;
+        }
+
+        .address-box p {
+            margin: 10px 0;
+            font-size: 0.9rem;
         }
 
         /* popup */
@@ -774,10 +599,10 @@
 
         .popup-card {
             background: white;
-            max-width: 440px;
+            max-width: 400px;
             width: 90%;
-            border-radius: 40px;
-            padding: 32px;
+            border-radius: 32px;
+            padding: 28px 24px;
             text-align: center;
             transform: scale(0.9);
             transition: transform 0.3s;
@@ -787,12 +612,18 @@
             transform: scale(1);
         }
 
+        .popup-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
         .popup-card input {
             width: 100%;
-            padding: 14px;
-            margin: 12px 0;
-            border-radius: 60px;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 50px;
             border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
         }
 
         .close-popup {
@@ -800,79 +631,92 @@
             border: none;
             padding: 12px;
             width: 100%;
-            border-radius: 60px;
+            border-radius: 50px;
             color: white;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .popup-trigger {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 20px;
+            right: 20px;
             background: #ff6a2c;
-            width: 58px;
-            height: 58px;
-            border-radius: 58px;
+            width: 52px;
+            height: 52px;
+            border-radius: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             z-index: 99;
             transition: 0.3s;
-            animation: bounce 2s infinite;
         }
 
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
+        .popup-trigger i {
+            font-size: 24px;
+            color: white;
         }
 
         .popup-trigger:hover {
-            transform: scale(1.08);
+            transform: scale(1.05);
             background: #e5531a;
-            animation: none;
         }
 
         footer {
             background: #0a0e17;
             color: #adb7c9;
-            padding: 45px 0;
+            padding: 35px 0;
             text-align: center;
+            font-size: 0.85rem;
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 65px;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            padding: 18px;
+            transform: translateY(-150%);
+            transition: 0.3s;
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        .mobile-menu.show {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 10px 0;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+        }
+
+        .social-icons i {
+            margin: 0 8px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: #ff6a2c;
+        }
+
+        /* Responsive Breakpoints - Perfect Mobile */
+        @media (max-width: 992px) {
+            section {
+                padding: 55px 0;
             }
         }
 
-        @keyframes fadeRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero-content {
                 flex-direction: column;
@@ -901,93 +745,92 @@
             }
 
             .section-title {
-                font-size: 1.9rem;
+                font-size: 1.8rem;
             }
 
-            section {
-                padding: 60px 0;
+            .cars-grid {
+                gap: 20px;
             }
 
             .stats-grid {
-                gap: 25px;
+                gap: 20px;
             }
 
             .stat-number {
-                font-size: 2.5rem;
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                gap: 25px;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 18px;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
+                padding: 0 16px;
             }
 
             .hero-text h1 {
-                font-size: 1.9rem;
+                font-size: 1.7rem;
+            }
+
+            .btn {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .car-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .price {
+                font-size: 1.2rem;
+            }
+
+            .popup-card {
+                padding: 22px 18px;
+            }
+
+            .brand-logos {
+                gap: 20px;
+            }
+
+            .brand-logos i {
+                font-size: 2rem;
             }
         }
 
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(16px);
-            z-index: 999;
-            padding: 20px;
-            transform: translateY(-150%);
-            transition: 0.3s;
-        }
+        @media (max-width: 360px) {
+            .hero-text h1 {
+                font-size: 1.5rem;
+            }
 
-        .mobile-menu.show {
-            transform: translateY(0);
-        }
-
-        .mobile-menu a {
-            display: block;
-            color: white;
-            padding: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .social-icons i {
-            margin: 0 8px;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .social-icons i:hover {
-            color: #ff6a2c;
+            .stat-number {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ========== BEAUTIFUL CAR LOADER (3 seconds) ========== -->
+    <!-- SIMPLE CIRCLE LOADER (3 seconds) -->
     <div class="preloader" id="preloader">
         <div class="loader-container">
-            <div class="loader-car">
-                <div class="car-body"></div>
-                <div class="wheel wheel-left"></div>
-                <div class="wheel wheel-right"></div>
-            </div>
-            <div class="road"></div>
+            <div class="spinner"></div>
             <div class="loader-text">
                 Velocity Vault
                 <span class="loader-dots">
                     <span>.</span><span>.</span><span>.</span>
                 </span>
             </div>
-            <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 15px;">Loading premium rides</p>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.75rem; margin-top: 12px;">Loading premium rides</p>
         </div>
     </div>
 
@@ -1150,13 +993,14 @@
         <!-- Popup -->
         <div class="popup-overlay" id="popupOverlay">
             <div class="popup-card">
-                <i class="fas fa-gem" style="font-size: 3rem; color:#ff6a2c;"></i>
+                <i class="fas fa-gem" style="font-size: 2.5rem; color:#ff6a2c;"></i>
                 <h3>Limited Time Offer!</h3>
                 <p>Get <strong>$500 discount</strong> + free ceramic coating.</p>
                 <input type="text" placeholder="Your Name" id="popupName">
                 <input type="email" placeholder="Email Address" id="popupEmail">
                 <button class="close-popup" id="submitPopup">Claim Offer</button>
-                <button id="closePopupBtn" style="background:none; border:none; margin-top:12px;">Close</button>
+                <button id="closePopupBtn"
+                    style="background:none; border:none; margin-top:10px; cursor:pointer; color:#888;">Close</button>
             </div>
         </div>
         <div class="popup-trigger" id="floatingPopupBtn"><i class="fas fa-tag"></i></div>
@@ -1172,27 +1016,20 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // ========== LOADER LOGIC - EXACTLY 3 SECONDS ==========
+        // LOADER LOGIC - EXACTLY 3 SECONDS with simple circle
         window.addEventListener('load', function () {
             setTimeout(function () {
                 const preloader = document.getElementById('preloader');
                 const mainContent = document.getElementById('mainContent');
-
-                // Hide preloader with fade effect
                 preloader.classList.add('hide');
-
-                // Show main content
                 mainContent.classList.add('visible');
-
-                // Remove preloader from DOM after transition
                 setTimeout(function () {
                     preloader.style.display = 'none';
                 }, 600);
-            }, 3000); // Exactly 3 seconds
+            }, 3000);
         });
 
-        // Initialize AOS
-        AOS.init({ duration: 800, once: true, offset: 100 });
+        AOS.init({ duration: 700, once: true, offset: 80 });
 
         const carCollection = [
             { name: "Pegasus GT", price: "$189,900", engine: "4.0L V8 TwinTurbo", power: "617 HP", img: "https://cdn.pixabay.com/photo/2018/03/29/18/31/car-3273446_640.jpg" },
@@ -1215,7 +1052,7 @@
                 card.innerHTML = `
                     <div class="car-img"><img src="${car.img}" alt="${car.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Car'"></div>
                     <div class="car-info"><h3>${car.name}</h3><div class="price">${car.price}</div><div class="details"><span><i class="fas fa-microchip"></i> ${car.engine}</span><span><i class="fas fa-horse-head"></i> ${car.power}</span></div>
-                    <a href="#" class="btn btn-outline" style="padding:6px 18px;">Enquire Now</a></div>`;
+                    <a href="#" class="btn btn-outline" style="padding:5px 16px; font-size:0.8rem;">Enquire Now</a></div>`;
                 card.querySelector('.btn-outline').addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage(`🚀 Enquire: ${car.name}`); });
                 grid.appendChild(card);
             });
@@ -1225,6 +1062,7 @@
         const popupOverlay = document.getElementById('popupOverlay');
         function showPopupWithMessage(msg) { const title = popupOverlay.querySelector('h3'); if (msg) title.innerText = msg.length < 35 ? msg : "Special Offer!"; popupOverlay.classList.add('popup-active'); }
         function closePopup() { popupOverlay.classList.remove('popup-active'); document.getElementById('popupName').value = ''; document.getElementById('popupEmail').value = ''; }
+
         document.getElementById('heroPopupBtn')?.addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage("✨ Exclusive Launch Offer"); });
         document.getElementById('navPopupBtn')?.addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage("🔥 Hot Seasonal Deals"); });
         document.getElementById('mobilePopupBtn')?.addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage("🎁 Limited Edition Bonus"); });
@@ -1237,16 +1075,10 @@
         menuToggle?.addEventListener('click', () => { mobileMenu.classList.toggle('show'); const icon = menuToggle.querySelector('i'); if (mobileMenu.classList.contains('show')) { icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
         document.querySelectorAll('.mobile-menu a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.remove('show'); const icon = menuToggle.querySelector('i'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }); });
         document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { const id = this.getAttribute('href'); if (id === "#" || id === "") return; const el = document.querySelector(id); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); if (mobileMenu.classList.contains('show')) { mobileMenu.classList.remove('show'); const icon = menuToggle.querySelector('i'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } } }); });
-        window.addEventListener('scroll', () => { const navbar = document.querySelector('.navbar'); if (window.scrollY > 30) navbar.style.background = "rgba(6,10,22,0.98)"; else navbar.style.background = "rgba(10,15,27,0.95)"; });
+        window.addEventListener('scroll', () => { const navbar = document.querySelector('.navbar'); if (window.scrollY > 30) navbar.style.background = "rgba(6,10,22,0.98)"; else navbar.style.background = "rgba(10,15,27,0.96)"; });
         renderCars();
 
-        // Welcome popup only after loader (but after 3.5 seconds to not interrupt loader)
-        setTimeout(() => {
-            if (!localStorage.getItem('popupShown')) {
-                showPopupWithMessage("🚗 Welcome to Velocity Vault!");
-                localStorage.setItem('popupShown', 'true');
-            }
-        }, 3500);
+        setTimeout(() => { if (!localStorage.getItem('popupShown')) { showPopupWithMessage("🚗 Welcome to Velocity Vault!"); localStorage.setItem('popupShown', 'true'); } }, 3500);
     </script>
 </body>
 
