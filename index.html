@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Velocity Vault | Premium Car Showroom - Drive Your Dream</title>
+    <!-- Google Fonts (Poppins + Inter) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background: #fefefe;
+            color: #1a1e2b;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* ========== PRELOADER / LOADER STYLES ========== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0f1c 0%, #121a2e 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-container {
+            text-align: center;
+        }
+
+        /* Car animation */
+        .loader-car {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin: 0 auto 30px;
+        }
+
+        .car-body {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 160px;
+            height: 45px;
+            background: #ff6a2c;
+            border-radius: 20px 20px 10px 10px;
+            animation: driveCar 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 5px 20px rgba(255, 106, 44, 0.4);
+        }
+
+        .car-body::before {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: 30px;
+            width: 80px;
+            height: 35px;
+            background: #ff8c42;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .car-body::after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 45px;
+            width: 50px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .wheel {
+            position: absolute;
+            bottom: 0;
+            width: 28px;
+            height: 28px;
+            background: #1a1a2e;
+            border-radius: 50%;
+            border: 3px solid #e0e0e0;
+            animation: rotateWheel 1s linear infinite;
+        }
+
+        .wheel-left {
+            left: 20px;
+        }
+
+        .wheel-right {
+            right: 20px;
+        }
+
+        .wheel::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #aaa;
+            border-radius: 50%;
+        }
+
+        @keyframes driveCar {
+            0% {
+                transform: translateX(0px);
+            }
+
+            100% {
+                transform: translateX(15px);
+            }
+        }
+
+        @keyframes rotateWheel {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Road lines */
+        .road {
+            width: 200px;
+            height: 4px;
+            background: repeating-linear-gradient(90deg, #ff6a2c, #ff6a2c 20px, transparent 20px, transparent 40px);
+            margin: 20px auto 0;
+            animation: roadMove 0.8s linear infinite;
+        }
+
+        @keyframes roadMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 40px 0;
+            }
+        }
+
+        .loader-text {
+            margin-top: 30px;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .loader-dots {
+            display: inline-block;
+        }
+
+        .loader-dots span {
+            animation: blink 1.4s infinite;
+            animation-fill-mode: both;
+        }
+
+        .loader-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loader-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+
+            0%,
+            80%,
+            100% {
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 1;
+            }
+        }
+
+        /* Main content initially hidden */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* custom scroll */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #eaeef5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff6a2c;
+            border-radius: 20px;
+        }
+
+        /* reusable containers */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        /* header / navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 27, 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 106, 44, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ff8c42, #ff5e1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            color: #fff;
+            background: none;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #f0f2f5;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #ff6a2c;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ff6a2c;
+            transform: translateY(-2px);
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.6rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(125deg, #0a0f1c 0%, #121a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 106, 44, 0.15), transparent);
+            top: 10%;
+            right: -10%;
+            border-radius: 50%;
+            animation: pulseGlow 7s infinite;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 106, 44, 0.1), transparent);
+            bottom: 0%;
+            left: -5%;
+            border-radius: 50%;
+            animation: pulseGlow2 8s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                opacity: 0.2;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 0.6;
+                transform: scale(1.3);
+            }
+        }
+
+        @keyframes pulseGlow2 {
+            0% {
+                opacity: 0.1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.4;
+                transform: scale(1.5);
+            }
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: white;
+            text-align: left;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.2;
+            animation: fadeUp 0.8s ease;
+        }
+
+        .hero-text .highlight {
+            color: #ff6a2c;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-text .highlight::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 106, 44, 0.3);
+            bottom: 5px;
+            left: 0;
+            z-index: -1;
+        }
+
+        .hero-text p {
+            margin: 20px 0;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #ff6a2c;
+            color: white;
+            border: none;
+            box-shadow: 0 8px 20px rgba(255, 106, 44, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #e55a1e;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 106, 44, 0.5);
+        }
+
+        .btn-outline {
+            border: 2px solid #ff6a2c;
+            color: #ff6a2c;
+            background: transparent;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-outline:hover {
+            background: #ff6a2c;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            animation: fadeRight 0.9s ease;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.5));
+            border-radius: 20px;
+            transition: transform 0.4s;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* section titles */
+        .section-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title:after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: #ff6a2c;
+            display: block;
+            margin: 15px auto 0;
+            border-radius: 4px;
+        }
+
+        /* car cards grid */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 32px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            transform: translateY(0);
+        }
+
+        .car-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 45px -12px rgba(255, 106, 44, 0.25);
+        }
+
+        .car-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .car-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .car-card:hover .car-img img {
+            transform: scale(1.1);
+        }
+
+        .car-img::after {
+            content: '⚡ NEW';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff6a2c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .car-card:hover .car-img::after {
+            opacity: 1;
+        }
+
+        .car-info {
+            padding: 22px;
+        }
+
+        .car-info h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .price {
+            color: #ff6a2c;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin: 8px 0;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            color: #4a5568;
+            font-size: 0.85rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #0f172a, #1a1f35);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ff6a2c;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: #f8fafc;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card i {
+            font-size: 2.5rem;
+            color: #ff6a2c;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin: 15px 0;
+        }
+
+        .client-name {
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        /* Features section */
+        .features {
+            background: #0f172a;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 35px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #ff6a2c;
+            margin-bottom: 18px;
+            transition: 0.3s;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-item h4 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        /* Brand Section */
+        .brands {
+            background: white;
+            text-align: center;
+        }
+
+        .brand-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .brand-logos i {
+            font-size: 3rem;
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .brand-logos i:hover {
+            color: #ff6a2c;
+            transform: scale(1.1);
+        }
+
+        /* location section */
+        .location-section {
+            background: linear-gradient(110deg, #ffffff 0%, #f1f5f9 100%);
+        }
+
+        .location-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            align-items: stretch;
+        }
+
+        .map-placeholder {
+            flex: 1;
+            min-width: 260px;
+            border-radius: 32px;
+            height: 300px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-placeholder iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .address-box {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 32px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .address-box i {
+            color: #ff6a2c;
+            margin-right: 12px;
+            width: 28px;
+        }
+
+        /* popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .popup-active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-card {
+            background: white;
+            max-width: 440px;
+            width: 90%;
+            border-radius: 40px;
+            padding: 32px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .popup-active .popup-card {
+            transform: scale(1);
+        }
+
+        .popup-card input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 60px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .close-popup {
+            background: #ff6a2c;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .popup-trigger {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #ff6a2c;
+            width: 58px;
+            height: 58px;
+            border-radius: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 99;
+            transition: 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .popup-trigger:hover {
+            transform: scale(1.08);
+            background: #e5531a;
+            animation: none;
+        }
+
+        footer {
+            background: #0a0e17;
+            color: #adb7c9;
+            padding: 45px 0;
+            text-align: center;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+                order: 1;
+            }
+
+            .hero-image {
+                order: 2;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .stats-grid {
+                gap: 25px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 18px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 1.9rem;
+            }
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            padding: 20px;
+            transform: translateY(-150%);
+            transition: 0.3s;
+        }
+
+        .mobile-menu.show {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons i {
+            margin: 0 8px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: #ff6a2c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========== BEAUTIFUL CAR LOADER (3 seconds) ========== -->
+    <div class="preloader" id="preloader">
+        <div class="loader-container">
+            <div class="loader-car">
+                <div class="car-body"></div>
+                <div class="wheel wheel-left"></div>
+                <div class="wheel wheel-right"></div>
+            </div>
+            <div class="road"></div>
+            <div class="loader-text">
+                Velocity Vault
+                <span class="loader-dots">
+                    <span>.</span><span>.</span><span>.</span>
+                </span>
+            </div>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 15px;">Loading premium rides</p>
+        </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div class="main-content" id="mainContent">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">Velocity<span>Vault</span></div>
+                <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#cars">Models</a></li>
+                    <li><a href="#features">Why Us</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#location">Location</a></li>
+                    <li><a href="#" id="navPopupBtn">Offers</a></li>
+                </ul>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#home">🏠 Home</a>
+                <a href="#cars">🚗 Models</a>
+                <a href="#features">⭐ Why Us</a>
+                <a href="#testimonials">💬 Reviews</a>
+                <a href="#location">📍 Location</a>
+                <a href="#" id="mobilePopupBtn">🔥 Hot Offers</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <div class="hero-text" data-aos="fade-up">
+                    <h1>Drive Your <span class="highlight">Dream Machine</span><br>Today</h1>
+                    <p>Exclusive luxury & performance cars — tailored financing, warranty, and doorstep test rides.
+                        Experience automotive excellence.</p>
+                    <div class="btn-group">
+                        <a href="#cars" class="btn btn-primary">Explore Fleet <i class="fas fa-arrow-right"></i></a>
+                        <a href="#" class="btn btn-outline" id="heroPopupBtn">Get Offer <i class="fas fa-gift"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image" data-aos="fade-left">
+                    <img src="civic.jfif"
+                        alt="Luxury sports car" onerror="this.src='https://placehold.co/600x400?text=Supercar'">
+                </div>
+            </div>
+        </section>
+
+        <!-- Cars Showroom Section -->
+        <section id="cars">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Latest Arrivals</h2>
+                <div class="cars-grid" id="carsGrid"></div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item" data-aos="zoom-in">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Cars Sold</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Showrooms</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">What Our Drivers Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card" data-aos="flip-left"><i class="fas fa-star"></i>
+                        <p>"Absolutely amazing experience! The team helped me get my dream car within budget."</p>
+                        <div class="client-name">— Michael R.</div>
+                    </div>
+                    <div class="testimonial-card" data-aos="flip-left" data-aos-delay="100"><i class="fas fa-star"></i>
+                        <p>"Best showroom in town. Smooth process and the car quality is top notch."</p>
+                        <div class="client-name">— Sarah J.</div>
+                    </div>
+                    <div class="testimonial-card" data-aos="flip-left" data-aos-delay="200"><i class="fas fa-star"></i>
+                        <p>"Luxury cars with affordable finance. I'm in love with my new Pegasus GT!"</p>
+                        <div class="client-name">— David K.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title" style="color:white;" data-aos="fade-up">Premium Experience</h2>
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-right">
+                        <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <h4>Performance Tuned</h4>
+                        <p>Thrilling horsepower & handling.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-right" data-aos-delay="100">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h4>Extended Warranty</h4>
+                        <p>5-year / 100k km coverage.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left" data-aos-delay="200">
+                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                        <h4>24/7 Concierge</h4>
+                        <p>Dedicated support for owners.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left" data-aos-delay="300">
+                        <div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <h4>Flexible Finance</h4>
+                        <p>0% interest EMI options.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section class="brands">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Trusted Partners</h2>
+                <div class="brand-logos">
+                    <i class="fab fa-bmw"></i> <i class="fab fa-mercedes"></i> <i class="fab fa-audi"></i> <i
+                        class="fab fa-tesla"></i> <i class="fab fa-honda"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="location-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Visit Our Flagship Showroom</h2>
+                <div class="location-wrap">
+                    <div class="map-placeholder" data-aos="fade-right"><iframe
+                            src="https://maps.google.com/maps?q=Manhattan%2C%20New%20York%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            allowfullscreen></iframe></div>
+                    <div class="address-box" data-aos="fade-left">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Velocity Vault Auto Haus</strong><br>850 5th
+                            Avenue, Manhattan, NY 10065</p>
+                        <p><i class="fas fa-phone-alt"></i> +1 (800) 889-0990</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 10AM - 8PM | Sun: 12PM - 6PM</p>
+                        <p><i class="fas fa-car-side"></i> Free valet parking & test drive lounge</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popup -->
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup-card">
+                <i class="fas fa-gem" style="font-size: 3rem; color:#ff6a2c;"></i>
+                <h3>Limited Time Offer!</h3>
+                <p>Get <strong>$500 discount</strong> + free ceramic coating.</p>
+                <input type="text" placeholder="Your Name" id="popupName">
+                <input type="email" placeholder="Email Address" id="popupEmail">
+                <button class="close-popup" id="submitPopup">Claim Offer</button>
+                <button id="closePopupBtn" style="background:none; border:none; margin-top:12px;">Close</button>
+            </div>
+        </div>
+        <div class="popup-trigger" id="floatingPopupBtn"><i class="fas fa-tag"></i></div>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Velocity Vault — Where passion meets asphalt.</p>
+                <div class="social-icons"><i class="fab fa-instagram"></i> <i class="fab fa-twitter"></i> <i
+                        class="fab fa-facebook"></i> <i class="fab fa-youtube"></i></div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== LOADER LOGIC - EXACTLY 3 SECONDS ==========
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                const preloader = document.getElementById('preloader');
+                const mainContent = document.getElementById('mainContent');
+
+                // Hide preloader with fade effect
+                preloader.classList.add('hide');
+
+                // Show main content
+                mainContent.classList.add('visible');
+
+                // Remove preloader from DOM after transition
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 600);
+            }, 3000); // Exactly 3 seconds
+        });
+
+        // Initialize AOS
+        AOS.init({ duration: 800, once: true, offset: 100 });
+
+        const carCollection = [
+            { name: "Pegasus GT", price: "$189,900", engine: "4.0L V8 TwinTurbo", power: "617 HP", img: "https://cdn.pixabay.com/photo/2018/03/29/18/31/car-3273446_640.jpg" },
+            { name: "Aether X1", price: "$112,500", engine: "3.0L e-Hybrid", power: "536 HP", img: "https://cdn.pixabay.com/photo/2016/04/01/12/02/car-1300629_640.jpg" },
+            { name: "Nova RS", price: "$274,200", engine: "5.2L V10", power: "602 HP", img: "https://cdn.pixabay.com/photo/2018/05/02/09/29/auto-3368094_640.jpg" },
+            { name: "Zenith Coupe", price: "$89,990", engine: "2.0L Turbo", power: "348 HP", img: "https://cdn.pixabay.com/photo/2019/02/21/19/00/mercedes-4011569_640.jpg" },
+            { name: "Dark Horse", price: "$158,400", engine: "6.2L V8", power: "755 HP", img: "https://cdn.pixabay.com/photo/2017/11/09/01/49/ford-mustang-2932194_640.jpg" },
+            { name: "Volt Shadow", price: "$67,800", engine: "Dual Motor EV", power: "480 HP", img: "https://cdn.pixabay.com/photo/2021/01/23/18/16/tesla-5942690_640.jpg" }
+        ];
+
+        function renderCars() {
+            const grid = document.getElementById('carsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            carCollection.forEach((car, idx) => {
+                const card = document.createElement('div');
+                card.className = 'car-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', idx * 50);
+                card.innerHTML = `
+                    <div class="car-img"><img src="${car.img}" alt="${car.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Car'"></div>
+                    <div class="car-info"><h3>${car.name}</h3><div class="price">${car.price}</div><div class="details"><span><i class="fas fa-microchip"></i> ${car.engine}</span><span><i class="fas fa-horse-head"></i> ${car.power}</span></div>
+                    <a href="#" class="btn btn-outline" style="padding:6px 18px;">Enquire Now</a></div>`;
+                card.querySelector('.btn-outline').addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage(`🚀 Enquire: ${car.name}`); });
+                grid.appendChild(card);
+            });
+            AOS.refresh();
+        }
+
+        const popupOverlay = document.getElementById('popupOverlay');
+        function showPopupWithMessage(msg) { const title = popupOverlay.querySelector('h3'); if (msg) title.innerText = msg.length < 35 ? msg : "Special Offer!"; popupOverlay.classList.add('popup-active'); }
+        function closePopup() { popupOverlay.classList.remove('popup-active'); document.getElementById('popupName').value = ''; document.getElementById('popupEmail').value = ''; }
+        document.getElementById('heroPopupBtn')?.addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage("✨ Exclusive Launch Offer"); });
+        document.getElementById('navPopupBtn')?.addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage("🔥 Hot Seasonal Deals"); });
+        document.getElementById('mobilePopupBtn')?.addEventListener('click', (e) => { e.preventDefault(); showPopupWithMessage("🎁 Limited Edition Bonus"); });
+        document.getElementById('floatingPopupBtn')?.addEventListener('click', () => { showPopupWithMessage("⚡ Flash Sale - 20% off"); });
+        document.getElementById('closePopupBtn')?.addEventListener('click', closePopup);
+        document.getElementById('submitPopup')?.addEventListener('click', () => { const n = document.getElementById('popupName')?.value.trim(), e = document.getElementById('popupEmail')?.value.trim(); if (n && e && e.includes('@')) { alert(`✅ Thanks ${n}! Coupon sent to ${e}`); closePopup(); } else alert("Please fill valid details."); });
+        popupOverlay?.addEventListener('click', (e) => { if (e.target === popupOverlay) closePopup(); });
+
+        const menuToggle = document.getElementById('menuToggle'), mobileMenu = document.getElementById('mobileMenu');
+        menuToggle?.addEventListener('click', () => { mobileMenu.classList.toggle('show'); const icon = menuToggle.querySelector('i'); if (mobileMenu.classList.contains('show')) { icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+        document.querySelectorAll('.mobile-menu a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.remove('show'); const icon = menuToggle.querySelector('i'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { const id = this.getAttribute('href'); if (id === "#" || id === "") return; const el = document.querySelector(id); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); if (mobileMenu.classList.contains('show')) { mobileMenu.classList.remove('show'); const icon = menuToggle.querySelector('i'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } } }); });
+        window.addEventListener('scroll', () => { const navbar = document.querySelector('.navbar'); if (window.scrollY > 30) navbar.style.background = "rgba(6,10,22,0.98)"; else navbar.style.background = "rgba(10,15,27,0.95)"; });
+        renderCars();
+
+        // Welcome popup only after loader (but after 3.5 seconds to not interrupt loader)
+        setTimeout(() => {
+            if (!localStorage.getItem('popupShown')) {
+                showPopupWithMessage("🚗 Welcome to Velocity Vault!");
+                localStorage.setItem('popupShown', 'true');
+            }
+        }, 3500);
+    </script>
+</body>
+
+</html>
